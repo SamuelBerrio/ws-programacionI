@@ -44,6 +44,7 @@ public class Empresa {
                         String mail = JOptionPane.showInputDialog("Ingrese el correo");
                         int yearsOld = Integer.parseInt(JOptionPane.showInputDialog("Ingrese los años de antiguedad"));
                         Empleado empleado = new Empleado(code, name, mail, yearsOld);
+                        System.out.println("Usuario Creado");
                         empleados[contEmp] = empleado;
                         contEmp++;
                     }
@@ -62,35 +63,69 @@ public class Empresa {
                     switch (desicionObj){
                         case 1:
                             int codigo = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el codigo de el Objeto"));
-                            for(int i=0;i<4;i++){
+                            for(int i=0;i<3;i++){
                                 if(codigo==objetos[i].getCode()){
                                     String ObjetoProp="1 - Codigo: "+objetos[i].getCode()+"\n" +
                                             "2 - Nombre: "+ objetos[i].getName()+"\n" +
                                             "3 - Unidades: "+objetos[i].getUnits()+"\n" +
                                             "4 - Estado: "+objetos[i].isStatus()+"\n" +
                                             "5 - Precio: "+objetos[i].getPrice();
+                                    JOptionPane.showMessageDialog(null,ObjetoProp);
                                 }
                             }break;
                         case 2:
-                            String nombre =JOptionPane.showInputDialog("Ingrese el codigo de el Objeto");
-
-                            for (int i=0; i<prestamos.length; i++){
-                                Detalle detalle[]= prestamos[i].getDetails();
-                                for (int j=0; j<prestamos[i].getDetails().length; j++)
-                                {
-                                    detalle[j].getObjeto().
-                                }
-                            }
-                            for(int i=0;i<4;i++){
-                                if(nombre.equals(objetos[i].getName())){
-                                    for(int j=0;j<4;j++){
-                                        if(nombre.equals(prestamos[i].getDetails().g)){
-
+                            String nombre =JOptionPane.showInputDialog("Ingrese el nombre de el Objeto");
+                            if(prestamos[1]==null){
+                                System.out.println("No hay prestamos");
+                            }    else{
+                                int cont = 0;
+                                for (Prestamo prestamo : prestamos) {
+                                    Detalle detalle[] = prestamo.getDetails();
+                                    for (int j = 0; j < prestamo.getDetails().length; j++) {
+                                        if (nombre.equals(detalle[j].getObjeto().getName())) {
+                                            cont++;
                                         }
                                     }
-                                    String ObjetoProp="Esta incluido en "+.
                                 }
+                                JOptionPane.showMessageDialog(null,"El objeto "+nombre+" ha sido prestado "+cont+" veces");
                             }break;
+                        case 3:
+                            if(prestamos[1]==null){
+                                System.out.println("No hay prestamos");
+                            }else {
+                                int objetosUnits[] = new int [3];
+                                for (Objeto objeto : objetos) {
+                                    for (Prestamo prestamo : prestamos) {
+                                        for (int j = 0; j < prestamo.getDetails().length; j++) {
+                                            Detalle[] detalle = prestamo.getDetails();
+                                            if (objeto.getName().equals(detalle[j].getObjeto().getName())) {
+                                                objetosUnits[j] = detalle[j].getUnits();
+                                            }
+                                        }
+                                    }
+                                }
+                                JOptionPane.showMessageDialog(null,"Objeto 1: "+objetosUnits[0]+"\n" +
+                                        "Objeto 2: "+objetosUnits[1]+"\n" +
+                                        "Objeto 3: "+objetosUnits[2]);
+                            }break;
+                        case 4:
+                            int num = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero del objeto"));
+                            if(num<=1 || num>3){
+                                System.out.println("Numero incorrecto seleccione uno en el rango de 1 - 3");
+                            }else{
+                                int codeNew = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el código nuevo"));
+                                String nameNew = JOptionPane.showInputDialog("Ingrese el nuevo nombre");
+                                int unitsNew = Integer.parseInt(JOptionPane.showInputDialog("Ingrese las unidades nuevas"));
+                                int dispNew = Integer.parseInt(JOptionPane.showInputDialog("Ingrese 1 si está disponible o 2 si no está disponible"));
+                                boolean statusNew = dispNew == 1;
+                                double priceNew = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el precio nuevo"));
+                                objetos[num-1].setCode(codeNew);
+                                objetos[num-1].setName(nameNew);
+                                objetos[num-1].setUnits(unitsNew);
+                                objetos[num-1].setStatus(statusNew);
+                                objetos[num-1].setPrice(priceNew);
+                                JOptionPane.showMessageDialog(null, "El objeto ha sido modificado");
+                            }
                     }
             }
 
