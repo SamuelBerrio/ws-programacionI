@@ -52,4 +52,7 @@ public class Objeto {
         this.status = status;
         this.price = price;
     }
+    public Objeto(){
+
+    }
 }
